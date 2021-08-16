@@ -14,13 +14,13 @@ namespace Commander.Controllers
     [Route("api/commands")] //can write [Route("api/[controller]")] to yield the same result
     public class CommandsController : ControllerBase
     {
-        private readonly MockCommanderRepo _repository = new MockCommanderRepo();
-        private readonly ILogger<CommandsController> _logger;
-
-        public CommandsController(ILogger<CommandsController> logger)
+        private readonly ICommanderRepo _repository;
+        public CommandsController(ICommanderRepo repository)
         {
-            _logger = logger;
+            _repository = repository;
         }
+
+        //private readonly MockCommanderRepo _repository = new MockCommanderRepo();
 
         //GET api/commands
         [HttpGet]
