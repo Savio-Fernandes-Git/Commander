@@ -1,3 +1,5 @@
+using System;
+using AutoMapper;
 using Commander.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -26,6 +28,8 @@ namespace Commander
             ));
             services.AddControllers();
 
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             //USING DIFFERENT REPOS
             //services.AddScoped<ICommanderRepo, MockCommanderRepo>();
             services.AddScoped<ICommanderRepo, SqlCommanderRepo>();
