@@ -9,8 +9,10 @@ namespace Commander.Profiles
         public CommandsProfile()
         {   
             //Source -> target/destination
-            CreateMap<Command, CommandReadDto>();
-            CreateMap<CommandCreateDto, Command>();
+            CreateMap<Command, CommandReadDto>(); //get
+            CreateMap<CommandCreateDto, Command>(); //post/create
+            CreateMap<CommandUpdateDto, Command>(); //Put/update
+            CreateMap<Command, CommandUpdateDto>(); //Patch/update
         }
     }
 }

@@ -40,5 +40,11 @@ namespace Commander.Data
         {
             //we dont need to actually type update logic here
         }
+
+        public void DeleteCommand(Command cmd)
+        {
+            if (cmd == null) throw new ArgumentNullException( nameof(cmd) );
+            _context.Commands.Remove(cmd);
+        }
     }
 }
