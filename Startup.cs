@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
 
 namespace Commander
@@ -27,8 +28,14 @@ namespace Commander
             services.AddDbContext<CommanderContext>(opt => opt.UseSqlServer(
                 Configuration.GetConnectionString("CommanderConnection")
             ));
-            services.AddControllers().AddNewtonsoftJson( s => {
+            services.AddControllers().AddNewtonsoftJson(s =>
+            {
                 s.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            });
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Commander", Version = "v1" });
             });
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -43,6 +50,8 @@ namespace Commander
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Commander v1"));
             }
 
             app.UseHttpsRedirection();
